@@ -24,4 +24,5 @@ CelularView::CelularView(Celular* cel) : modelo(cel) {
 CelularView::~CelularView() {
     // Qt se encarga de limpiar el textoNombre por ser "hijo" (this),
     // pero debemos limpiar el modelo si es responsabilidad nuestra
+    delete modelo;
 }

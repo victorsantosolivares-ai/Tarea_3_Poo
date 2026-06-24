@@ -7,26 +7,19 @@
 #include <QGraphicsPixmapItem>
 #include "Celular.h"
 #include "CelularView.h"
+#include "Territory.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , miTerritorioVisual(nullptr) // Inicializamos en null
 {
     ui->setupUi(this);
-    // 1. Inicializar la escena gráfica
-    scene = new QGraphicsScene(this);
-    ui->graphicsView->setScene(scene); // Conectar la vista con la escena
 
-    // 2. Pedir al usuario el archivo config.txt usando QFileDialog
-    // Esto abrirá la típica ventana de Windows para buscar archivos
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     "Seleccionar archivo de configuración", "", "Text Files (*.txt);;All Files (*)");
 
-    if (fileName.isEmpty()) {
-        QMessageBox::warning(this, "Aviso", "No se seleccionó ningún archivo. El programa se cerrará.");
-        // Aquí podrías cerrar la aplicación si el archivo es obligatorio
-    } else {
-        // 3. Procesar el archivo
+    if (!fileName.isEmpty()) {
         loadConfiguration(fileName);
     }
 }
@@ -43,43 +36,40 @@ void MainWindow::loadConfiguration(const QString &filePath)
 
     QTextStream in(&file);
 
+    // 1. Configurar y crear el Territory y TerritoryView
     QString backgroundFileName = in.readLine().trimmed();
     QFileInfo fileInfo(filePath);
     QString imagePath = fileInfo.absolutePath() + "/" + backgroundFileName;
 
-    QPixmap background(imagePath);
-    if (!background.isNull()) {
-        scene->addPixmap(background);
-        scene->setSceneRect(background.rect());
-    }
+    Territory* territorioModelo = new Territory(imagePath);
+    miTerritorioVisual = new TerritoryView(territorioModelo, this);
 
+    // Conectar nuestra vista personalizada a la interfaz gráfica
+    ui->graphicsView->setScene(miTerritorioVisual);
+
+    // 2. Leer resto de configuracion
     float deltaTiempo;
     in >> deltaTiempo;
 
     int numeroPersonas;
     in >> numeroPersonas;
 
-    // --- CICLO PRINCIPAL DE LECTURA ---
+    // 3. Crear celulares y añadirlos al TerritoryView
     for (int i = 0; i < numeroPersonas; ++i) {
         QString nombre;
         int numTags;
         int numTablets;
+
         in >> nombre >> numTags >> numTablets;
 
-        // Leer datos del celular de esta persona
         float celX, celY, rapidez, angulo, deltaAngulo;
         in >> celX >> celY >> rapidez >> angulo >> deltaAngulo;
 
-        // 1. Crear el modelo (La lógica)
         Celular* nuevoCelular = new Celular(nombre, celX, celY, rapidez, angulo, deltaAngulo);
-
-        // 2. Crear la vista (Lo visual) pasándole el modelo
         CelularView* vistaCelular = new CelularView(nuevoCelular);
 
-        // 3. Añadir la vista al territorio visual (la escena)
-        scene->addItem(vistaCelular);
+        miTerritorioVisual->addCelularView(vistaCelular); // Añadir al TerritoryView
 
-        // --- Ignorar temporalmente los tags ---
         // --- Saltar los datos de los Tags por ahora ---
         for (int j = 0; j < numTags; ++j) {
             QString dummyName;

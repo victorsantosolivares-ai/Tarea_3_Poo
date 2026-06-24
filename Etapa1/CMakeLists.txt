@@ -14,6 +14,8 @@ qt_add_executable(Tarea_3_Poo
     Equipo.h Equipo.cpp
     Celular.h Celular.cpp
     CelularView.h CelularView.cpp
+    territory.h territory.cpp
+    territoryview.h territoryview.cpp
 )
 
 target_link_libraries(Tarea_3_Poo

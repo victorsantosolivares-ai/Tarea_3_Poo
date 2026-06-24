@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QGraphicsScene>
+#include "TerritoryView.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,7 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene *scene; //Añade el territorio
+    TerritoryView *miTerritorioVisual; //Añade el territorio
     void loadConfiguration(const QString &filePath); //Lee .txt
 };
 #endif // MAINWINDOW_H
