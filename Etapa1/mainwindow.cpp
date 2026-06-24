@@ -5,6 +5,8 @@
 #include <QFile>
 #include <QTextStream>
 #include <QGraphicsPixmapItem>
+#include <QFileInfo>
+
 #include "Celular.h"
 #include "CelularView.h"
 #include "Territory.h"
