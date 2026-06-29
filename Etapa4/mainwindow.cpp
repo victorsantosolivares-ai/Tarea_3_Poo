@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupMenu();
 
     QString fileName = QFileDialog::getOpenFileName(this,
-                                                    "Seleccionar archivo de configuración", "", "Text Files (*.txt);;All Files (*)");
+        "Seleccionar archivo de configuración", "", "Text Files (*.txt);;All Files (*)");
 
     if (!fileName.isEmpty()) {
         loadConfiguration(fileName);
@@ -107,7 +107,6 @@ void MainWindow::loadConfiguration(const QString &filePath) {
 
             EloTelTag* nuevoTag = new EloTelTag(nombre + tagName, nombre, tagX, tagY, tagRap, tagAng, tagDeltaAng);
             EloTelTagView* vistaTag = new EloTelTagView(nuevoTag);
-            // Pasar la lista de equipos para que el tag pueda buscar celulares
             vistaTag->setListaEquipos(miTerritorioVisual->getListaEquipos());
             miTerritorioVisual->addEquipoVisual(vistaTag);
         }
