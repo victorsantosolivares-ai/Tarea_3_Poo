@@ -90,7 +90,7 @@ void MainWindow::loadConfiguration(const QString &filePath)
             float tagX, tagY, tagRap, tagAng, tagDeltaAng;
             in >> tagName >> tagX >> tagY >> tagRap >> tagAng >> tagDeltaAng;
 
-            EloTelTag* nuevoTag = new EloTelTag(tagName, tagX, tagY, tagRap, tagAng, tagDeltaAng);
+            EloTelTag* nuevoTag = new EloTelTag(nombre + tagName, tagX, tagY, tagRap, tagAng, tagDeltaAng);
             EloTelTagView* vistaTag = new EloTelTagView(nuevoTag);
 
             // USAR LA NUEVA FUNCIÓN AQUÍ TAMBIÉN
