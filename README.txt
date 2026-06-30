@@ -126,6 +126,3 @@ según la última información disponible en ETNube.
 ------------------------------------------------------------------------
 * El diagrama de clases (UML) del proyecto se encuentra adjunto como 
   imagen en la carpeta raíz del proyecto.
-* No se incluye Javadoc por tratarse de un proyecto en C++; se 
-  recomienda comentar el código en español siguiendo el estilo 
-  utilizado en los archivos .h y .cpp entregados.
