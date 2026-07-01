@@ -124,5 +124,5 @@ según la última información disponible en ETNube.
 ------------------------------------------------------------------------
 5. DOCUMENTACIÓN ADICIONAL
 ------------------------------------------------------------------------
-* El diagrama de clases (UML) del proyecto se encuentra adjunto como 
-  imagen en la carpeta raíz del proyecto.
+El diagrama de clases (UML) del proyecto se encuentra en el pdf de 
+la documentación.
